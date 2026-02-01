@@ -218,7 +218,16 @@ async function submitOrder() {
       return;
     }
 
-    alert("✅ تم إرسال الطلب بنجاح");
+   // تشغيل انميشن زر السلة
+const cartBtn = document.querySelector(".cart-btn");
+if (cartBtn) {
+  cartBtn.classList.add("animate");
+
+  // إزالة الكلاس بعد الانميشن
+  setTimeout(() => {
+    cartBtn.classList.remove("animate");
+  }, 500);
+}
 
     localStorage.removeItem("cart");
     window.location.href = "/Customer/index.html";

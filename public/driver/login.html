@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>دخول السائق</title>
+  <link rel="stylesheet" href="driver-login.css">
+</head>
+<body>
+
+  <div class="login-card">
+    <div class="icon">🚗</div>
+    <h2>تسجيل دخول السائق</h2>
+
+    <input id="username" placeholder="اسم المستخدم">
+    <input id="password" type="password" placeholder="كلمة المرور">
+
+    <button onclick="login()">دخول</button>
+
+    <div id="error" class="error"></div>
+  </div>
+
+<script>
+async function login() {
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value.trim();
+  const errorEl = document.getElementById("error");
+
+  errorEl.textContent = "";
+
+  if (!username || !password) {
+    errorEl.textContent = "يرجى إدخال اسم المستخدم وكلمة المرور";
+    return;
+  }
+
+  const res = await fetch("/api/driver/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, password })
+  });
+
+  if (res.ok) {
+    window.location.href = "/driver/dashboard.html";
+  } else {
+    errorEl.textContent = "اسم المستخدم أو كلمة المرور غير صحيحة";
+  }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>تسجيل الدخول</title>
+</head>
+<body>
+
+<h2>📱 تسجيل الدخول</h2>
+
+<input id="phone" placeholder="رقم الهاتف مع المفتاح">
+<br><br>
+<button onclick="sendCode()">إرسال كود</button>
+
+<br><br>
+
+<input id="code" placeholder="رمز التحقق">
+<br><br>
+<button onclick="verifyCode()">دخول</button>
+
+<script>
+async function sendCode() {
+  const phone = document.getElementById("phone").value;
+
+  await fetch("/api/whatsapp/send-code", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ phone })
+  });
+
+  alert("📨 تم إرسال الكود عبر واتساب");
+}
+
+async function verifyCode() {
+  const phone = document.getElementById("phone").value;
+  const code = document.getElementById("code").value;
+
+  const res = await fetch("/api/whatsapp/verify-code", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ phone, code })
+  });
+
+  if (res.ok) {
+    window.location.href = "/";
+  } else {
+    alert("❌ كود غير صحيح");
+  }
+}
+</script>
+
+</body>
+</html>

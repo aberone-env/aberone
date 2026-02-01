@@ -1,0 +1,95 @@
+* {
+  box-sizing: border-box;
+  font-family: Tahoma, Arial;
+}
+
+body {
+  margin: 0;
+  background: #f4f6f8;
+  color: #333;
+}
+
+/* ===== Header ===== */
+.header {
+  background: #2e7d32;
+  color: #fff;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.logout-btn {
+  background: #c62828;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* ===== Orders ===== */
+.orders {
+  padding: 12px;
+}
+
+.order-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 14px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.order-card p {
+  margin: 6px 0;
+  font-size: 14px;
+}
+
+.order-items {
+  background: #f9f9f9;
+  border-radius: 10px;
+  padding: 8px;
+  margin: 8px 0;
+}
+
+.order-items li {
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+/* ===== Buttons ===== */
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.actions button {
+  flex: 1;
+  border: none;
+  padding: 8px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-accept {
+  background: #1976d2;
+  color: #fff;
+}
+
+.btn-delivering {
+  background: #f9a825;
+  color: #fff;
+}
+
+.btn-done {
+  background: #2e7d32;
+  color: #fff;
+}

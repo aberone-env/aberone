@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>السلة</title>
+  <link rel="stylesheet" href="/Customer/stely.css">
+</head>
+<body>
+
+  <!-- الهيدر -->
+  <header class="header">
+    🛒 السلة
+  </header>
+
+  <!-- محتوى السلة -->
+  <div class="cart-page">
+
+    <!-- التوصيل -->
+    <div class="delivery-box">
+        <h3>الطلب يستغرق من 20 الى 30 دقيقة</h3>
+      <h3>🚚 التوصيل</h3>
+      <p>🚚 سعر التوصيل: من 500 إلى 1000 ريال</p>
+    </div>
+
+    <!-- الأكلات -->
+    <div id="cart-items" class="cart-list"></div>
+
+    <!-- الإضافات -->
+    <div class="notes-box">
+      <h3>➕ إضافات / ملاحظات</h3>
+
+      <div class="notes-inputs">
+        <input
+          type="text"
+          id="note-name"
+          placeholder="اسم الإضافة (مثال: بطاط)"
+        >
+
+        <input
+          type="number"
+          id="note-price"
+          placeholder="السعر"
+        >
+
+        <button id="add-note-btn">إضافة</button>
+      </div>
+
+      <ul id="notes-list"></ul>
+    </div>
+
+    <!-- الإجمالي -->
+    <div id="total" class="total-box"></div>
+
+  </div>
+<div class="checkout-box">
+  <h3>📦 تأكيد الطلب</h3>
+
+  <input
+    type="tel"
+    id="phone"
+    placeholder="رقم الهاتف"
+    required
+  >
+
+  <textarea
+    id="location"
+    placeholder="الموقع / وصف المكان"
+    required
+  ></textarea>
+   <!-- ملاحظات / اقتراحات -->
+<textarea
+  id="notes"
+  placeholder="📝 ملاحظات أو اقتراحات (اختياري)"
+></textarea>
+  <button onclick="submitOrder()">إرسال الطلب</button>
+</div>
+  <script src="/Customer/cart.js"></script>
+</body>
+</html>

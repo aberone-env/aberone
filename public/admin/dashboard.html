@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>لوحة تحكم المدير</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<button id="logoutBtn">تسجيل خروج</button>
+<h1>لوحة تحكم المدير</h1>
+
+<!-- ========================= -->
+<!-- إضافة مطعم -->
+<!-- ========================= -->
+<section>
+  <h2>إضافة مطعم</h2>
+  <form id="addRestaurantForm" enctype="multipart/form-data">
+    <input type="text" name="name" placeholder="اسم المطعم" required>
+    <br><br>
+    <input type="file" name="image" required>
+    <br><br>
+    <button type="submit">إضافة مطعم</button>
+  </form>
+</section>
+
+<hr>
+
+<!-- ========================= -->
+<!-- عرض المطاعم -->
+<!-- ========================= -->
+<section>
+  <h2>المطاعم</h2>
+  <div id="restaurants"></div>
+</section>
+
+<hr>
+
+<!-- ========================= -->
+<!-- إضافة أكلة -->
+<!-- ========================= -->
+<section>
+  <h2>إضافة أكلة</h2>
+
+  <form id="addFoodForm" enctype="multipart/form-data">
+    <input type="text" name="name" placeholder="اسم الأكلة" required>
+    <br><br>
+
+    <input type="number" name="price" placeholder="السعر" required>
+    <br><br>
+
+    <select name="restaurantId" id="restaurantSelect" required>
+      <option value="">اختر مطعم</option>
+    </select>
+
+    <br><br>
+
+    <input type="file" name="image" required>
+    <br><br>
+
+    <button type="submit">إضافة أكلة</button>
+  </form>
+</section>
+
+<hr>
+
+<!-- ========================= -->
+<!-- عرض الأكلات حسب المطعم -->
+<!-- ========================= -->
+<section>
+  <h2>الأكلات حسب المطعم</h2>
+
+  <select id="foodsRestaurantSelect">
+    <option value="">اختر مطعم</option>
+  </select>
+
+  <div id="foods"></div>
+</section>
+<hr>
+
+<!-- ========================= -->
+<!-- قسم الخضروات والفواكه -->
+<!-- ========================= -->
+<section>
+  <h2>الخضروات والفواكه</h2>
+
+  <!-- إضافة منتج -->
+  <form id="addProductForm" enctype="multipart/form-data">
+    <input
+      type="text"
+      name="name"
+      placeholder="اسم المنتج (بطاطس، طماطم...)"
+      required
+    >
+    <br><br>
+
+    <input
+      type="number"
+      name="price"
+      placeholder="السعر"
+      required
+    >
+    <br><br>
+
+    <input
+      type="text"
+      name="unit"
+      placeholder="الوحدة (كيلو / حبة)"
+      value="كيلو"
+    >
+    <br><br>
+
+    <input
+      type="file"
+      name="image"
+      required
+    >
+    <br><br>
+
+    <button type="submit">إضافة منتج</button>
+  </form>
+
+  <hr>
+
+  <!-- عرض المنتجات -->
+  <div id="products"></div>
+</section>
+<hr>
+
+<!-- ========================= -->
+<!-- قسم العروض الخاصة -->
+<!-- ========================= -->
+<section>
+  <h2>العروض الخاصة</h2>
+
+  <!-- إضافة عرض -->
+  <form id="addOfferForm" enctype="multipart/form-data">
+
+    <input
+      type="text"
+      name="title"
+      placeholder="عنوان العرض"
+      required
+    >
+    <br><br>
+
+    <!-- نوع العرض -->
+    <select name="type" id="offerType" required>
+      <option value="">نوع العرض</option>
+      <option value="restaurant">مطعم</option>
+      <option value="food">أكلة</option>
+      <option value="product">منتج (خضار/فواكه)</option>
+    </select>
+    <br><br>
+
+    <!-- المعرف المرتبط -->
+    <input
+      type="text"
+      name="refId"
+      placeholder="ID المطعم / الأكلة / المنتج"
+      required
+    >
+    <br><br>
+
+    <input
+      type="number"
+      name="discountPercent"
+      placeholder="نسبة الخصم (%)"
+    >
+    <br><br>
+
+    <input
+      type="number"
+      name="specialPrice"
+      placeholder="سعر خاص (اختياري)"
+    >
+    <br><br>
+
+    <label>تاريخ البداية</label><br>
+    <input type="date" name="startDate">
+    <br><br>
+
+    <label>تاريخ النهاية</label><br>
+    <input type="date" name="endDate">
+    <br><br>
+
+    <input
+      type="file"
+      name="image"
+    >
+    <br><br>
+
+    <button type="submit">إضافة عرض</button>
+  </form>
+
+  <hr>
+
+  <!-- عرض العروض -->
+  <div id="offers"></div>
+</section>
+<hr>
+
+<!-- ========================= -->
+<!-- السوبر ماركت ومحلات البهارات -->
+<!-- ========================= -->
+<section>
+  <h2>المتاجر (سوبر ماركت / بهارات)</h2>
+
+  <form id="addStoreForm" enctype="multipart/form-data">
+    <input type="text" name="name" placeholder="اسم المتجر" required>
+    <br><br>
+
+    <select name="type" required>
+      <option value="">نوع المتجر</option>
+      <option value="supermarket">سوبر ماركت</option>
+      <option value="spices">محل بهارات</option>
+    </select>
+    <br><br>
+
+    <input type="text" name="location" placeholder="الموقع (مثال: شارع كذا)">
+    <br><br>
+
+    <textarea name="description" placeholder="نص إضافي / ملاحظات"></textarea>
+    <br><br>
+
+    <input type="file" name="image" required>
+    <br><br>
+
+    <button type="submit">إضافة متجر</button>
+  </form>
+
+  <hr>
+
+  <div id="stores"></div>
+</section>
+<section>
+  <h2>📦 الطلبات</h2>
+  <div id="orders"></div>
+</section>
+<script src="dashboard.js"></script>
+</body>
+</html>

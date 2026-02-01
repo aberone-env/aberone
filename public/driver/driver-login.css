@@ -1,0 +1,72 @@
+* {
+  box-sizing: border-box;
+  font-family: Tahoma, Arial;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, #3a45a1, #0363b1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===== Card ===== */
+.login-card {
+  background: #fff;
+  width: 100%;
+  max-width: 360px;
+  padding: 24px;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+.login-card .icon {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+.login-card h2 {
+  margin: 0 0 20px;
+  color: #2204a8;
+}
+
+/* ===== Inputs ===== */
+.login-card input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.login-card input:focus {
+  outline: none;
+  border-color: #2e7d32;
+}
+
+/* ===== Button ===== */
+.login-card button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  background: #2405cf;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.login-card button:hover {
+  background: #2806e9;
+}
+
+/* ===== Error ===== */
+.error {
+  color: #c62828;
+  font-size: 13px;
+  margin-top: 10px;
+}

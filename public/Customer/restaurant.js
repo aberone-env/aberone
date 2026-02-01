@@ -24,16 +24,26 @@ const restaurantId = params.get("id");
 // دالة بناء رابط الصورة (نفس المنطق الناجح)
 
 // جلب الأكلات
+// جلب الأكلات
 async function loadFoods() {
   if (!restaurantId) {
     foodsContainer.innerHTML = "<p>❌ مطعم غير معروف</p>";
     return;
   }
 
+  // ====== تحميل وهمي ======
+  foodsContainer.innerHTML = `
+    <div class="skeleton skeleton-card"></div>
+    <div class="skeleton skeleton-card"></div>
+    <div class="skeleton skeleton-card"></div>
+    <div class="skeleton skeleton-card"></div>
+  `;
+
   try {
     const res = await fetch(`/api/foods/by-restaurant/${restaurantId}`);
     const foods = await res.json();
 
+    // مسح التحميل الوهمي
     foodsContainer.innerHTML = "";
 
     if (!foods.length) {
@@ -44,18 +54,10 @@ async function loadFoods() {
     foods.forEach((food) => {
       const card = document.createElement("div");
       card.className = "card";
-      const btn = document.createElement("button");
-btn.textContent = "إضافة إلى السلة";
-btn.className = "add-btn";
 
-btn.onclick = () => {
-  addToCart(food);
-};
-
-card.appendChild(btn);
       const img = document.createElement("img");
       img.src = getImageUrl(food.image);
-      img.alt = (food.name);
+      img.alt = food.name;
 
       const title = document.createElement("h3");
       title.textContent = food.name;
@@ -63,9 +65,15 @@ card.appendChild(btn);
       const price = document.createElement("p");
       price.textContent = food.price + " ريال";
 
+      const btn = document.createElement("button");
+      btn.textContent = "إضافة إلى السلة";
+      btn.className = "add-btn";
+      btn.onclick = () => addToCart(food);
+
       card.appendChild(img);
       card.appendChild(title);
       card.appendChild(price);
+      card.appendChild(btn);
 
       foodsContainer.appendChild(card);
     });
@@ -76,6 +84,8 @@ card.appendChild(btn);
       "<p>حدث خطأ في تحميل الأكلات</p>";
   }
 }
+
+
 
 document.addEventListener("DOMContentLoaded", loadFoods);
 function addToCart(food) {

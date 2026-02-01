@@ -369,3 +369,100 @@ body {
     padding: 18px;
   }
 }
+
+.about-content {
+  animation: slideUpSoft 0.35s ease;
+}
+
+@keyframes slideUpSoft {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+button,
+.cart-btn,
+.about-btn {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+button:active,
+.cart-btn:active,
+.about-btn:active {
+  transform: scale(0.96);
+}
+.total-box {
+  animation: pulseTotal 0.6s ease;
+}
+
+@keyframes pulseTotal {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+.slider .card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.slider .card:hover {
+  transform: scale(1.04);
+  box-shadow: 0 10px 22px rgba(0,0,0,0.15);
+}
+.cart-btn:active {
+  transform: scale(0.9);
+}
+.loading-text {
+  text-align: center;
+  color: #777;
+  font-size: 14px;
+  margin-top: -10px;
+}
+/* ===== Spinner ===== */
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #e0e0e0;
+  border-top: 4px solid #1e88e5;
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+  margin: 30px auto;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ===== Skeleton Loading ===== */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #eeeeee 25%,
+    #f5f5f5 37%,
+    #eeeeee 63%
+  );
+  background-size: 400% 100%;
+  animation: skeletonMove 1.4s ease infinite;
+  border-radius: 14px;
+}
+
+@keyframes skeletonMove {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+/* كرت وهمي */
+.skeleton-card {
+  height: 190px;
+  margin-bottom: 15px;
+}

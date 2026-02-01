@@ -1,17 +1,22 @@
 // ===============================
 // دالة تصحيح مسار الصور (نفس المطاعم)
+// ===============================ق// ===============================
+// توحيد مسار الصور (نفس الأكلات والمطاعم)
 // ===============================
 function getImageUrl(image) {
   if (!image) return "";
 
-  if (image.startsWith("/uploads")) {
+  // لو المسار جاهز
+  if (image.startsWith("/uploads/")) {
     return image;
   }
 
+  // لو بدون /
   if (image.startsWith("uploads/")) {
     return "/" + image;
   }
 
+  // اسم صورة فقط
   return "/uploads/" + image;
 }
 

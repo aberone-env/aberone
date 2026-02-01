@@ -33,8 +33,8 @@ async function loadOffers() {
 
     offers.forEach(offer => {
 
-      // ❌ لا نعرض العروض غير الصالحة
-      if (offer.isValidNow === false) return;
+      // ✅ نعرض فقط العروض المفعّلة
+      if (offer.active === false) return;
 
       // ===============================
       // تحديد السعر المعروض
@@ -53,7 +53,7 @@ async function loadOffers() {
         // fallback هادئ لو لم تُحسب من السيرفر
         if (offer.specialPrice) {
           priceText = `🔥 سعر خاص: ${offer.specialPrice} ريال`;
-        } else if (offer.discountPercent > 0) {
+        } else if (offer.discountPercent && offer.discountPercent > 0) {
           priceText = `🔻 خصم ${offer.discountPercent}%`;
         }
       }
@@ -72,11 +72,11 @@ async function loadOffers() {
           ? new Date(offer.endDate).toLocaleDateString("ar-YE")
           : "";
 
-        dateText = `<small>⏰ ${start} ${end ? "→ " + end : ""}</small>`;
+        dateText = `<small>⏰ ${start}${end ? " → " + end : ""}</small>`;
       }
 
       // ===============================
-      // العرض
+      // كرت العرض
       // ===============================
       offersDiv.innerHTML += `
         <div class="card offer-card">

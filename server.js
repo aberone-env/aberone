@@ -19,7 +19,10 @@ const whatsappRoutes = require("./routes/whatsapp");
 
 
 const app = express();
-
+// إعادة توجيه الصفحة الرئيسية إلى صفحة الزبون
+app.get("/", (req, res) => {
+  res.redirect("/Customer/");
+});
 /* ======================
    Middleware
 ====================== */

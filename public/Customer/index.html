@@ -1,179 +1,180 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>الزبون | الرئيسية</title>
   <link rel="stylesheet" href="stely.css">
 </head>
+
 <body>
 
-<!-- ===== الهيدر ===== -->
-<header class="header">
+  <!-- ===== الهيدر ===== -->
+  <header class="header">
 
-  <div class="top-bar">
+    <div class="top-bar">
 
-    <!-- الشعار -->
-    <span class="logo">🍔 الرئيسية</span>
+      <!-- الشعار -->
+      <span class="logo">🍔 الرئيسية</span>
 
-    <!-- أزرار أعلى اليمين -->
-    <div class="header-actions">
+      <!-- أزرار أعلى اليمين -->
+      <div class="header-actions">
 
-      <!-- زر عنا -->
-      <button class="about-btn" onclick="toggleAbout()">عنا</button>
+        <!-- زر عنا -->
+        <button class="about-btn" onclick="toggleAbout()">عنا</button>
 
-      <!-- زر السلة -->
-      <a href="/Customer/cart.html" class="cart-btn">🛒</a>
+        <!-- زر السلة -->
+        <a href="/Customer/cart.html" class="cart-btn">🛒</a>
+
+      </div>
 
     </div>
 
-  </div>
+    <!-- شريط التنقل -->
+    <nav class="nav-tabs">
+      <button onclick="scrollToSection('offers-section')">🎁 العروض</button>
+      <button onclick="scrollToSection('restaurants-section')">🍽️ المطاعم</button>
+      <button onclick="scrollToSection('products-section')">🥦 خضروات</button>
+      <button onclick="scrollToSection('stores-section')">🏪 المتاجر</button>
+    </nav>
 
-  <!-- شريط التنقل -->
-  <nav class="nav-tabs">
-    <button onclick="scrollToSection('offers-section')">🎁 العروض</button>
-    <button onclick="scrollToSection('restaurants-section')">🍽️ المطاعم</button>
-    <button onclick="scrollToSection('products-section')">🥦 خضروات</button>
-    <button onclick="scrollToSection('stores-section')">🏪 المتاجر</button>
-  </nav>
+  </header>
 
-</header>
+  <!-- ===== نافذة عنا (مخفية افتراضيًا) ===== -->
+  <!-- ===== نافذة عنا ===== -->
+  <div id="aboutModal" class="about-modal">
 
-<!-- ===== نافذة عنا (مخفية افتراضيًا) ===== -->
-<!-- ===== نافذة عنا ===== -->
-<div id="aboutModal" class="about-modal">
+    <div class="about-content">
+      <button class="close-btn" onclick="toggleAbout()">✖</button>
 
-  <div class="about-content">
-    <button class="close-btn" onclick="toggleAbout()">✖</button>
+      <h2>من نحن:</h2>
 
-    <h2>من نحن:</h2>
-
-    <p>
-      نحن منصة توصيل محلية صُممت خصيصًا لخدمتكم في
-      <strong>مدينة صنعاء</strong> 🇾🇪
-    </p>
-
-    <p>
-      نوفر لكم المطاعم، الخضروات، الفواكه، والمتاجر
-      بسهولة وسرعة.
-    </p>
-
-    <p class="about-quote">
-      ✨ طلبك علينا… وراحتك أولويتنا ✨
-    </p>
-
-    <div class="contact-box">
-      <a href="https://wa.me/967774033224" target="_blank"
-         class="contact-btn whatsapp">💬 واتساب</a>
-
-      <a href="tel:967774033224"
-         class="contact-btn phone">📞 اتصال</a>
-    </div>
-
-    <hr class="about-divider">
-
-    <!-- سياسة الخصوصية -->
-    <div class="privacy-section">
-      <h4>سياسة الخصوصية</h4>
-      <p>نحن نحترم خصوصيتك ونلتزم بحماية بياناتك.</p>
-      <ul>
-        <li>يُستخدم رقم الهاتف فقط للتحقق.</li>
-        <li>لا تتم مشاركة البيانات مع أي طرف ثالث.</li>
-        <li>يتم حفظ البيانات بشكل آمن.</li>
-        <li>يمكن حذف البيانات عند الطلب.</li>
-      </ul>
-    </div>
-
-    <hr class="about-divider">
-
-    <!-- حقوق النشر -->
-    <div class="copyright-section">
-      <p>© 2026 جميع الحقوق محفوظة لتطبيق <strong>Aberone</strong>.</p>
       <p>
-        يُمنع نسخ أو استخدام أي جزء من التطبيق دون إذن خطي.
+        نحن منصة توصيل محلية صُممت خصيصًا لخدمتكم في
+        <strong>مدينة صنعاء</strong> 🇾🇪
       </p>
+
+      <p>
+        نوفر لكم المطاعم، الخضروات، الفواكه، والمتاجر
+        بسهولة وسرعة.
+      </p>
+
+      <p class="about-quote">
+        ✨ طلبك علينا… وراحتك أولويتنا ✨
+      </p>
+
+      <div class="contact-box">
+        <a href="https://wa.me/967774033224" target="_blank" class="contact-btn whatsapp">💬 واتساب</a>
+
+        <a href="tel:967774033224" class="contact-btn phone">📞 اتصال</a>
+      </div>
+
+      <hr class="about-divider">
+
+      <!-- سياسة الخصوصية -->
+      <div class="privacy-section">
+        <h4>سياسة الخصوصية</h4>
+        <p>نحن نحترم خصوصيتك ونلتزم بحماية بياناتك.</p>
+        <ul>
+          <li>يُستخدم رقم الهاتف فقط للتحقق.</li>
+          <li>لا تتم مشاركة البيانات مع أي طرف ثالث.</li>
+          <li>يتم حفظ البيانات بشكل آمن.</li>
+          <li>يمكن حذف البيانات عند الطلب.</li>
+        </ul>
+      </div>
+
+      <hr class="about-divider">
+
+      <!-- حقوق النشر -->
+      <div class="copyright-section">
+        <p>© 2026 جميع الحقوق محفوظة لتطبيق <strong>Aberone</strong>.</p>
+        <p>
+          يُمنع نسخ أو استخدام أي جزء من التطبيق دون إذن خطي.
+        </p>
+      </div>
+
     </div>
-
   </div>
-</div>
 
-<!-- ===== العروض (سلايدر) ===== -->
-<section class="section" id="offers-section">
-  <h2 class="section-title">🎁 العروض الخاصة</h2>
+  <!-- ===== العروض (سلايدر) ===== -->
+  <section class="section" id="offers-section">
+    <h2 class="section-title">🎁 العروض الخاصة</h2>
 
-  <div class="slider-wrapper">
-    <button class="slider-btn right" onclick="slideOffers(-1)">›</button>
-    <div id="offers" class="slider"></div>
-    <button class="slider-btn left" onclick="slideOffers(1)">‹</button>
-  </div>
-</section>
-
-<!-- ===== المطاعم ===== -->
-<section class="section" id="restaurants-section">
-  <h2 class="section-title">🍽️ المطاعم</h2>
-  <div id="restaurants" class="grid"></div>
-</section>
-
-<!-- ===== الخضروات والفواكه ===== -->
-<section class="section" id="products-section">
-  <h2 class="section-title">🥦 خضروات وفواكه</h2>
-  <div id="products" class="grid"></div>
-
-  <div class="more-box">
-    <div class="card more-card" onclick="location.href='products.html'">
-      🥦 عرض كل الخضروات والفواكه →
+    <div class="slider-wrapper">
+      <button class="slider-btn right" onclick="slideOffers(-1)">›</button>
+      <div id="offers" class="slider"></div>
+      <button class="slider-btn left" onclick="slideOffers(1)">‹</button>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ===== المتاجر ===== -->
-<section class="section" id="stores-section">
-  <h2 class="section-title">🏪 المتاجر</h2>
+  <!-- ===== المطاعم ===== -->
+  <section class="section" id="restaurants-section">
+    <h2 class="section-title">🍽️ المطاعم</h2>
+    <div id="restaurants" class="grid"></div>
+  </section>
 
-  <div class="grid">
-    <div class="card" onclick="location.href='stores.html'">🛒 السوبر ماركت</div>
-    <div class="card" onclick="location.href='stores.html'">🌶️ محلات البهارات</div>
-  </div>
-</section>
+  <!-- ===== الخضروات والفواكه ===== -->
+  <section class="section" id="products-section">
+    <h2 class="section-title">🥦 خضروات وفواكه</h2>
+    <div id="products" class="grid"></div>
 
-<!-- ===== السكربتات ===== -->
-<script src="app.js"></script>
-<script src="offers.js"></script>
-<script src="products.js"></script>
+    <div class="more-box">
+      <div class="card more-card" onclick="location.href='products.html'">
+        🥦 عرض كل الخضروات والفواكه →
+      </div>
+    </div>
+  </section>
 
-<!-- ===== تنقّل سلس ===== -->
-<script>
-function scrollToSection(id) {
-  const el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: "smooth" });
-}
-</script>
+  <!-- ===== المتاجر ===== -->
+  <section class="section" id="stores-section">
+    <h2 class="section-title">🏪 المتاجر</h2>
 
-<!-- ===== سلايدر العروض ===== -->
-<script>
-let offerIndex = 0;
-function slideOffers(direction) {
-  const slider = document.getElementById("offers");
-  const card = slider.querySelector(".card");
-  if (!card) return;
+    <div class="grid">
+      <div class="card" onclick="location.href='stores.html'">🛒 السوبر ماركت</div>
+      <div class="card" onclick="location.href='stores.html'">🌶️ محلات البهارات</div>
+    </div>
+  </section>
 
-  const cardWidth = card.offsetWidth + 12;
-  offerIndex += direction;
+  <!-- ===== السكربتات ===== -->
+  <script src="app.js"></script>
+  <script src="offers.js"></script>
+  <script src="products.js"></script>
 
-  slider.scrollTo({
-    left: offerIndex * cardWidth,
-    behavior: "smooth"
-  });
-}
-</script>
+  <!-- ===== تنقّل سلس ===== -->
+  <script>
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
+  </script>
 
-<!-- ===== التحكم في نافذة عنا ===== -->
-<script>
-function toggleAbout() {
-  document.getElementById("aboutModal").classList.toggle("show");
-}
-</script>
+  <!-- ===== سلايدر العروض ===== -->
+  <script>
+    let offerIndex = 0;
+    function slideOffers(direction) {
+      const slider = document.getElementById("offers");
+      const card = slider.querySelector(".card");
+      if (!card) return;
+
+      const cardWidth = card.offsetWidth + 12;
+      offerIndex += direction;
+
+      slider.scrollTo({
+        left: offerIndex * cardWidth,
+        behavior: "smooth"
+      });
+    }
+  </script>
+
+  <!-- ===== التحكم في نافذة عنا ===== -->
+  <script>
+    function toggleAbout() {
+      document.getElementById("aboutModal").classList.toggle("show");
+    }
+  </script>
 
 
 </body>
+
 </html>

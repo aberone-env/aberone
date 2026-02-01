@@ -663,14 +663,4 @@ body {
 }
 
 /* ===== صندوق نافذة (عنا) ===== */
-.about-content {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 20px;
 
-  max-height: 85vh;     /* 👈 هذا هو المهم */
-  overflow-y: auto;    /* 👈 وهذا هو الحل الحقيقي */
-
-  width: 90%;
-  max-width: 420px;
-}

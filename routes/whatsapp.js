@@ -3,40 +3,59 @@ const axios = require("axios");
 
 const router = express.Router();
 
-// تخزين الأكواد مؤقتًا (لاحقًا يمكن ربطها بقاعدة بيانات)
+/*
+=====================================
+🔐 إعدادات من Environment Variables
+(توضع في Render → Environment)
+=====================================
+*/
+const WHATSAPP_TOKEN = process.env.WHATSAPP_TOKEN;
+const WHATSAPP_PHONE_ID = process.env.WHATSAPP_PHONE_ID;
+const OTP_EXPIRE_MINUTES = Number(process.env.OTP_EXPIRE_MINUTES || 5);
+
+/*
+=====================================
+🧠 تخزين الأكواد مؤقتًا
+(لاحقًا ننقلها إلى MongoDB)
+=====================================
+*/
 const codes = {};
 
-// 🔐 بيانات واتساب (ثابتة عندك)
-const WHATSAPP_TOKEN =
-  "EAASIldhTB4QBQoK03C1Fa6580IQJiVz1xeVZAZCiZA0cuu8LLxtqReNBeNrc4YyAKUZCRTvjbhHfzfaA7HvZClAR5ORUNy3eXyWCdupznVZBenZA7NUDz8JoTiqZAZCNOE3bzGMpAXrrb3Co7N3fBrFhjw3Jg8ZBZAdrVwYOMpuwa5y2G4tEEwdWy4Snd6iVJnnkn09kcJxLeGCIaehu6bQZBSsa017yvXgodjzpc64JZAFiuxkYfAeZC5dQZDZD";
-
-const PHONE_NUMBER_ID = "981771608349591";
-
-// =================================================
-// 📩 إرسال كود التحقق
-// =================================================
+/*
+=====================================
+📩 إرسال كود التحقق عبر واتساب
+POST /api/auth/send-code
+BODY: { phone }
+=====================================
+*/
 router.post("/send-code", async (req, res) => {
   const { phone } = req.body;
 
   if (!phone) {
-    return res.status(400).json({ error: "رقم الهاتف مطلوب" });
+    return res.status(400).json({
+      success: false,
+      error: "رقم الهاتف مطلوب",
+    });
   }
 
-  // توليد كود من 6 أرقام
+  // توليد كود 6 أرقام
   const code = Math.floor(100000 + Math.random() * 900000);
 
-  // حفظ الكود
-  codes[phone] = code;
+  // حفظ الكود مع وقت الانتهاء
+  codes[phone] = {
+    code,
+    expiresAt: Date.now() + OTP_EXPIRE_MINUTES * 60 * 1000,
+  };
 
   try {
     await axios.post(
-      `https://graph.facebook.com/v18.0/${PHONE_NUMBER_ID}/messages`,
+      `https://graph.facebook.com/v18.0/${WHATSAPP_PHONE_ID}/messages`,
       {
         messaging_product: "whatsapp",
         to: phone,
         type: "text",
         text: {
-          body: `🔐 كود تسجيل الدخول الخاص بك هو:\n\n${code}\n\nلا تشارك هذا الرمز مع أي شخص.`,
+          body: `🔐 كود تسجيل الدخول الخاص بك هو:\n\n${code}\n\n⏳ صالح لمدة ${OTP_EXPIRE_MINUTES} دقائق.\n❗ لا تشارك الرمز مع أي شخص.`,
         },
       },
       {
@@ -47,52 +66,76 @@ router.post("/send-code", async (req, res) => {
       }
     );
 
-    res.json({
+    return res.json({
       success: true,
-      message: "تم إرسال الكود بنجاح",
+      message: "تم إرسال كود التحقق بنجاح",
     });
   } catch (error) {
     console.error(
-      "WhatsApp Error:",
+      "WhatsApp API Error:",
       error.response?.data || error.message
     );
 
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       error: "فشل إرسال الكود عبر واتساب",
     });
   }
 });
 
-// =================================================
-// ✅ التحقق من الكود
-// =================================================
+/*
+=====================================
+✅ التحقق من كود واتساب
+POST /api/auth/verify-code
+BODY: { phone, code }
+=====================================
+*/
 router.post("/verify-code", (req, res) => {
   const { phone, code } = req.body;
 
   if (!phone || !code) {
     return res.status(400).json({
+      success: false,
       error: "رقم الهاتف والكود مطلوبان",
     });
   }
 
-  if (codes[phone] && codes[phone].toString() === code.toString()) {
-    // حذف الكود بعد النجاح
-    delete codes[phone];
+  const record = codes[phone];
 
-    return res.json({
-      success: true,
-      message: "تم التحقق بنجاح",
-      user: {
-        phone,
-      },
+  if (!record) {
+    return res.status(401).json({
+      success: false,
+      error: "لا يوجد كود لهذا الرقم",
     });
-  } else {
+  }
+
+  // التحقق من انتهاء الصلاحية
+  if (Date.now() > record.expiresAt) {
+    delete codes[phone];
+    return res.status(401).json({
+      success: false,
+      error: "انتهت صلاحية الكود",
+    });
+  }
+
+  // التحقق من الكود
+  if (record.code.toString() !== code.toString()) {
     return res.status(401).json({
       success: false,
       error: "الكود غير صحيح",
     });
   }
+
+  // نجاح التحقق
+  delete codes[phone];
+
+  return res.json({
+    success: true,
+    message: "تم تسجيل الدخول بنجاح",
+    user: {
+      phone,
+    },
+  });
 });
 
 module.exports = router;

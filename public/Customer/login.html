@@ -3,51 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <title>تسجيل الدخول</title>
+  <link rel="stylesheet" href="login.css">
 </head>
 <body>
 
-<h2>📱 تسجيل الدخول</h2>
+<div class="login-box">
+  <h2>📱 تسجيل الدخول</h2>
 
-<input id="phone" placeholder="رقم الهاتف مع المفتاح">
-<br><br>
-<button onclick="sendCode()">إرسال كود</button>
+  <!-- رقم الهاتف -->
+  <input
+    type="tel"
+    id="phone"
+    placeholder="مثال: 777123456"
+  >
 
-<br><br>
+  <button onclick="sendCode()">إرسال الكود</button>
 
-<input id="code" placeholder="رمز التحقق">
-<br><br>
-<button onclick="verifyCode()">دخول</button>
+  <!-- كود التحقق -->
+  <div id="codeBox" style="display:none;">
+    <input
+      type="number"
+      id="code"
+      placeholder="أدخل الكود"
+    >
+    <button onclick="verifyCode()">تأكيد</button>
+  </div>
 
-<script>
-async function sendCode() {
-  const phone = document.getElementById("phone").value;
+  <p id="msg"></p>
+</div>
 
-  await fetch("/api/whatsapp/send-code", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ phone })
-  });
-
-  alert("📨 تم إرسال الكود عبر واتساب");
-}
-
-async function verifyCode() {
-  const phone = document.getElementById("phone").value;
-  const code = document.getElementById("code").value;
-
-  const res = await fetch("/api/whatsapp/verify-code", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ phone, code })
-  });
-
-  if (res.ok) {
-    window.location.href = "/";
-  } else {
-    alert("❌ كود غير صحيح");
-  }
-}
-</script>
-
+<script src="login.js"></script>
 </body>
 </html>

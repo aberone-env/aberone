@@ -625,3 +625,39 @@ body {
   border-color: #ff9800;
   box-shadow: 0 0 0 2px rgba(255,152,0,0.15);
 }
+.about-divider {
+  margin: 15px 0;
+  border: none;
+  border-top: 1px solid #ddd;
+}
+
+.privacy-section h4 {
+  margin-bottom: 8px;
+  color: #333;
+  font-size: 16px;
+}
+
+.privacy-section p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 6px;
+}
+
+.privacy-section ul {
+  padding-right: 18px;
+  margin: 0;
+}
+
+.privacy-section li {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.8;
+}
+
+.copyright-section {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #666;
+  text-align: center;
+  line-height: 1.6;
+}

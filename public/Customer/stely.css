@@ -329,3 +329,43 @@ body {
   font-size: 17px;
   font-weight: bold;
 }
+
+/* ===== تحسين خاص للهاتف ===== */
+@media (max-width: 600px) {
+
+  body {
+    font-size: 18px;
+  }
+
+  .logo {
+    font-size: 22px;
+  }
+
+  .section-title {
+    font-size: 22px;
+  }
+
+  .nav-tabs button {
+    font-size: 16px;
+    padding: 12px 20px;
+  }
+
+  .card h3,
+  .card h4 {
+    font-size: 17px;
+  }
+
+  .card p {
+    font-size: 15px;
+  }
+
+  .total-box {
+    font-size: 20px;
+    padding: 18px;
+  }
+
+  .checkout-box button {
+    font-size: 18px;
+    padding: 18px;
+  }
+}

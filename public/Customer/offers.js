@@ -1,12 +1,17 @@
 // ===============================
-// دالة تصحيح مسار الصور (نفس المطاعم)
-// ===============================ق// ===============================
-// توحيد مسار الصور (نفس الأكلات والمطاعم)
+// دالة تصحيح مسار الصور
 // ===============================
 function getImageUrl(image) {
   if (!image) return "";
-  if (image.startsWith("/uploads")) return image;
-  if (image.startsWith("uploads/")) return "/" + image;
+
+  if (image.startsWith("/uploads")) {
+    return image;
+  }
+
+  if (image.startsWith("uploads/")) {
+    return "/" + image;
+  }
+
   return "/uploads/" + image;
 }
 
@@ -26,10 +31,22 @@ async function loadOffers() {
       return;
     }
 
-    offers.forEach(offer => {
+    offers.forEach((offer) => {
 
-      // ✅ نعرض فقط العروض المفعّلة
-      if (offer.active === false) return;
+      // ❌ تجاهل العروض غير الصالحة
+      if (offer.isValidNow === false) return;
+
+      // ===============================
+      // استخراج الصورة (ذكي وآمن)
+      // ===============================
+      const imagePath =
+        typeof offer.image === "string"
+          ? offer.image
+          : offer.image?.path || offer.image?.url || "";
+
+      const imageHtml = imagePath
+        ? `<img src="${getImageUrl(imagePath)}" alt="${offer.title}">`
+        : "";
 
       // ===============================
       // تحديد السعر المعروض
@@ -39,16 +56,13 @@ async function loadOffers() {
       if (offer.displayPrice) {
         if (offer.displayPrice.type === "special") {
           priceText = `🔥 سعر خاص: ${offer.displayPrice.value} ريال`;
-        }
-
-        if (offer.displayPrice.type === "discount") {
+        } else if (offer.displayPrice.type === "discount") {
           priceText = `🔻 خصم ${offer.displayPrice.value}%`;
         }
       } else {
-        // fallback هادئ لو لم تُحسب من السيرفر
         if (offer.specialPrice) {
           priceText = `🔥 سعر خاص: ${offer.specialPrice} ريال`;
-        } else if (offer.discountPercent && offer.discountPercent > 0) {
+        } else if (offer.discountPercent > 0) {
           priceText = `🔻 خصم ${offer.discountPercent}%`;
         }
       }
@@ -71,15 +85,11 @@ async function loadOffers() {
       }
 
       // ===============================
-      // كرت العرض
+      // بناء كرت العرض
       // ===============================
       offersDiv.innerHTML += `
         <div class="card offer-card">
-          ${
-            offer.image
-              ? `<img src="${getImageUrl(offer.image)}" alt="${offer.title}">`
-              : ""
-          }
+          ${imageHtml}
           <h3>${offer.title}</h3>
           <p>${priceText}</p>
           ${dateText}

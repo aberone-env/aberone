@@ -1,37 +1,36 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>تسجيل الدخول</title>
-  <link rel="stylesheet" href="login.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
-<body>
+<body dir="rtl">
 
-<div class="login-box">
-  <h2>📱 تسجيل الدخول</h2>
+  <h2>تسجيل الدخول برقم الهاتف</h2>
 
-  <!-- رقم الهاتف -->
   <input
     type="tel"
     id="phone"
-    placeholder="مثال: 777123456"
-  >
+    placeholder="مثال: 9677xxxxxx"
+  />
+  <br /><br />
 
-  <button onclick="sendCode()">إرسال الكود</button>
+  <button id="sendCodeBtn">إرسال كود واتساب</button>
 
-  <!-- كود التحقق -->
-  <div id="codeBox" style="display:none;">
-    <input
-      type="number"
-      id="code"
-      placeholder="أدخل الكود"
-    >
-    <button onclick="verifyCode()">تأكيد</button>
-  </div>
+  <br /><br />
 
-  <p id="msg"></p>
-</div>
+  <input
+    type="number"
+    id="code"
+    placeholder="أدخل الكود"
+  />
+  <br /><br />
 
-<script src="login.js"></script>
+  <button id="verifyCodeBtn">تأكيد الكود</button>
+
+  <p id="status"></p>
+
+  <script src="login.js"></script>
 </body>
 </html>

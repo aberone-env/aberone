@@ -1,89 +1,77 @@
-const msg = document.getElementById("msg");
-const codeBox = document.getElementById("codeBox");
+const API_BASE = "https://aberone-1.onrender.com/api/whatsapp";
 
-// 🇾🇪 تحويل الرقم اليمني إلى صيغة واتساب
-function formatYemenPhone(phone) {
-  phone = phone.trim();
+// عناصر الصفحة
+const phoneInput = document.getElementById("phone");
+const codeInput = document.getElementById("code");
+const sendBtn = document.getElementById("sendCodeBtn");
+const verifyBtn = document.getElementById("verifyCodeBtn");
+const statusBox = document.getElementById("status");
 
-  // 777xxxxxx → 967777xxxxxx
-  if (phone.startsWith("7")) {
-    return "967" + phone;
-  }
-
-  // 9677xxxxxx → OK
-  if (phone.startsWith("967")) {
-    return phone;
-  }
-
-  return null;
-}
-
-// ===============================
-// إرسال الكود
-// ===============================
-async function sendCode() {
-  const phoneInput = document.getElementById("phone").value;
-  const phone = formatYemenPhone(phoneInput);
+// إرسال كود واتساب
+sendBtn.addEventListener("click", async () => {
+  const phone = phoneInput.value.trim();
 
   if (!phone) {
-    msg.textContent = "❌ رقم الهاتف غير صحيح";
+    statusBox.innerText = "❌ أدخل رقم الهاتف";
     return;
   }
 
-  msg.textContent = "⏳ جاري إرسال الكود...";
+  statusBox.innerText = "⏳ جاري إرسال الكود عبر واتساب...";
 
-  const res = await fetch("/api/auth/send-code", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ phone })
-  });
+  try {
+    const res = await fetch(`${API_BASE}/send-code`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ phone }),
+    });
 
-  const data = await res.json();
+    const data = await res.json();
 
-  if (!res.ok) {
-    msg.textContent = "❌ فشل إرسال الكود";
-    return;
+    if (data.success) {
+      statusBox.innerText = "✅ تم إرسال الكود، افحص واتساب";
+    } else {
+      statusBox.innerText = "❌ فشل الإرسال";
+    }
+  } catch (err) {
+    console.error(err);
+    statusBox.innerText = "❌ خطأ في الاتصال بالسيرفر";
   }
+});
 
-  msg.textContent = "✅ تم إرسال الكود عبر واتساب";
-  codeBox.style.display = "block";
-}
-
-// ===============================
 // التحقق من الكود
-// ===============================
-async function verifyCode() {
-  const phoneInput = document.getElementById("phone").value;
-  const phone = formatYemenPhone(phoneInput);
-  const code = document.getElementById("code").value;
+verifyBtn.addEventListener("click", async () => {
+  const phone = phoneInput.value.trim();
+  const code = codeInput.value.trim();
 
-  if (!code) {
-    msg.textContent = "❌ أدخل الكود";
+  if (!phone || !code) {
+    statusBox.innerText = "❌ أدخل الرقم والكود";
     return;
   }
 
-  msg.textContent = "⏳ جاري التحقق...";
+  statusBox.innerText = "⏳ جاري التحقق...";
 
-  const res = await fetch("/api/auth/verify-code", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ phone, code })
-  });
+  try {
+    const res = await fetch(`${API_BASE}/verify-code`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ phone, code }),
+    });
 
-  const data = await res.json();
+    const data = await res.json();
 
-  if (!res.ok) {
-    msg.textContent = "❌ الكود غير صحيح";
-    return;
+    if (data.success) {
+      statusBox.innerText = "✅ تم تسجيل الدخول بنجاح";
+      // هنا لاحقًا نوجّه المستخدم
+      // window.location.href = "/customer/home.html";
+    } else {
+      statusBox.innerText = "❌ الكود غير صحيح";
+    }
+  } catch (err) {
+    console.error(err);
+    statusBox.innerText = "❌ خطأ في السيرفر";
   }
-
-  msg.textContent = "✅ تم تسجيل الدخول بنجاح";
-
-  // حفظ رقم الهاتف
-  localStorage.setItem("customer_phone", phone);
-
-  // تحويل للرئيسية
-  setTimeout(() => {
-    window.location.href = "/Customer/index.html";
-  }, 1000);
-}
+});

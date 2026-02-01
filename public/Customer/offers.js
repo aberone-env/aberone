@@ -5,18 +5,8 @@
 // ===============================
 function getImageUrl(image) {
   if (!image) return "";
-
-  // لو المسار جاهز
-  if (image.startsWith("/uploads/")) {
-    return image;
-  }
-
-  // لو بدون /
-  if (image.startsWith("uploads/")) {
-    return "/" + image;
-  }
-
-  // اسم صورة فقط
+  if (image.startsWith("/uploads")) return image;
+  if (image.startsWith("uploads/")) return "/" + image;
   return "/uploads/" + image;
 }
 

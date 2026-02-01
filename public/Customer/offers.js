@@ -3,15 +3,8 @@
 // ===============================
 function getImageUrl(image) {
   if (!image) return "";
-
-  if (image.startsWith("/uploads")) {
-    return image;
-  }
-
-  if (image.startsWith("uploads/")) {
-    return "/" + image;
-  }
-
+  if (image.startsWith("/uploads")) return image;
+  if (image.startsWith("uploads/")) return "/" + image;
   return "/uploads/" + image;
 }
 

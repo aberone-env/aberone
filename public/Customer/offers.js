@@ -3,8 +3,15 @@
 // ===============================
 function getImageUrl(image) {
   if (!image) return "";
-  if (image.startsWith("/uploads")) return image;
-  if (image.startsWith("uploads/")) return "/" + image;
+
+  if (image.startsWith("/uploads")) {
+    return image;
+  }
+
+  if (image.startsWith("uploads/")) {
+    return "/" + image;
+  }
+
   return "/uploads/" + image;
 }
 
@@ -14,7 +21,10 @@ function getImageUrl(image) {
 async function loadOffers() {
   try {
     const res = await fetch("/api/offers");
-    const offers = await res.json();
+    const data = await res.json();
+
+    // دعم كل أشكال الـ API (Array أو Object)
+    const offers = Array.isArray(data) ? data : data.offers || [];
 
     const offersDiv = document.getElementById("offers");
     offersDiv.innerHTML = "";
@@ -26,11 +36,11 @@ async function loadOffers() {
 
     offers.forEach((offer) => {
 
-      // ❌ تجاهل العروض غير الصالحة
-      if (offer.isValidNow === false) return;
+      // تجاهل العرض فقط إذا كان متأكد أنه غير صالح
+      if ("isValidNow" in offer && offer.isValidNow === false) return;
 
       // ===============================
-      // استخراج الصورة (ذكي وآمن)
+      // استخراج الصورة (آمن 100%)
       // ===============================
       const imagePath =
         typeof offer.image === "string"
@@ -42,7 +52,7 @@ async function loadOffers() {
         : "";
 
       // ===============================
-      // تحديد السعر المعروض
+      // السعر المعروض
       // ===============================
       let priceText = "بدون خصم";
 
@@ -78,7 +88,7 @@ async function loadOffers() {
       }
 
       // ===============================
-      // بناء كرت العرض
+      // كرت العرض
       // ===============================
       offersDiv.innerHTML += `
         <div class="card offer-card">
@@ -92,6 +102,8 @@ async function loadOffers() {
 
   } catch (err) {
     console.error("❌ خطأ في تحميل العروض:", err);
+    document.getElementById("offers").innerHTML =
+      "<p>حدث خطأ أثناء تحميل العروض</p>";
   }
 }
 

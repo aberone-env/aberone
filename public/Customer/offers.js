@@ -48,8 +48,9 @@ async function loadOffers() {
           : offer.image?.path || offer.image?.url || "";
 
       const imageHtml = imagePath
-        ? `<img src="${getImageUrl(imagePath)}" alt="${offer.title}">`
-        : "";
+  ? `<img src="${getImageUrl(imagePath)}" alt="${offer.title}"
+     onerror="this.style.display='none'">`
+  : "";
 
       // ===============================
       // السعر المعروض

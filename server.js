@@ -38,8 +38,22 @@ app.use(
 /* ======================
    Static folders
 ====================== */
+/* ======================
+   Static folders
+====================== */
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/uploads", express.static(path.join(__dirname, "public", "uploads")));
+
+/* ======================
+   Pages
+====================== */
+
+// الصفحة الرئيسية (الزبون)
+app.get("/", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "public", "Customer", "index.html")
+  );
+});
 /* ======================
    MongoDB
 ====================== */
